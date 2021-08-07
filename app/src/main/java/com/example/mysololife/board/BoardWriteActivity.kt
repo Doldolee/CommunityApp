@@ -21,6 +21,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBoardWriteBinding
 
+    private var isImageUpload = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -50,16 +52,19 @@ class BoardWriteActivity : AppCompatActivity() {
 
             Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_LONG).show()
 
-            imageUpload(key)
-
-            //Activity 종료시킴킴
+            if(isImageUpload == true){
+                imageUpload(key)
+            }
+            
+            //Activity 종료시킴
            finish()
         }
 
-        //갤러리로 이미지 업로드드
+        //갤러리에서 이미지 가져오기
        binding.imageArea.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, 100)
+            isImageUpload = true
 
         }
 
